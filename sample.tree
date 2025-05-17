@@ -1,0 +1,144 @@
+.
+├── alpha
+│   ├── alpha1
+│   │   ├── x
+│   │   │   ├── file_alpha_alpha1_x_1.txt
+│   │   │   ├── file_alpha_alpha1_x_2.txt
+│   │   │   └── file_alpha_alpha1_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_alpha_alpha1_y_1.txt
+│   │   │   ├── file_alpha_alpha1_y_2.txt
+│   │   │   └── file_alpha_alpha1_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_alpha_alpha1_z_1.txt
+│   │   │   ├── file_alpha_alpha1_z_2.txt
+│   │   │   └── file_alpha_alpha1_z_3.txt
+│   │   └── summary_alpha1.md
+│   ├── alpha2
+│   │   ├── x
+│   │   │   ├── file_alpha_alpha2_x_1.txt
+│   │   │   ├── file_alpha_alpha2_x_2.txt
+│   │   │   └── file_alpha_alpha2_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_alpha_alpha2_y_1.txt
+│   │   │   ├── file_alpha_alpha2_y_2.txt
+│   │   │   └── file_alpha_alpha2_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_alpha_alpha2_z_1.txt
+│   │   │   ├── file_alpha_alpha2_z_2.txt
+│   │   │   └── file_alpha_alpha2_z_3.txt
+│   │   └── summary_alpha2.md
+│   ├── alpha3
+│   │   ├── x
+│   │   │   ├── file_alpha_alpha3_x_1.txt
+│   │   │   ├── file_alpha_alpha3_x_2.txt
+│   │   │   └── file_alpha_alpha3_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_alpha_alpha3_y_1.txt
+│   │   │   ├── file_alpha_alpha3_y_2.txt
+│   │   │   └── file_alpha_alpha3_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_alpha_alpha3_z_1.txt
+│   │   │   ├── file_alpha_alpha3_z_2.txt
+│   │   │   └── file_alpha_alpha3_z_3.txt
+│   │   └── summary_alpha3.md
+│   └── README_alpha.md
+├── beta
+│   ├── beta1
+│   │   ├── x
+│   │   │   ├── file_beta_beta1_x_1.txt
+│   │   │   ├── file_beta_beta1_x_2.txt
+│   │   │   └── file_beta_beta1_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_beta_beta1_y_1.txt
+│   │   │   ├── file_beta_beta1_y_2.txt
+│   │   │   └── file_beta_beta1_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_beta_beta1_z_1.txt
+│   │   │   ├── file_beta_beta1_z_2.txt
+│   │   │   └── file_beta_beta1_z_3.txt
+│   │   └── summary_beta1.md
+│   ├── beta2
+│   │   ├── x
+│   │   │   ├── file_beta_beta2_x_1.txt
+│   │   │   ├── file_beta_beta2_x_2.txt
+│   │   │   └── file_beta_beta2_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_beta_beta2_y_1.txt
+│   │   │   ├── file_beta_beta2_y_2.txt
+│   │   │   └── file_beta_beta2_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_beta_beta2_z_1.txt
+│   │   │   ├── file_beta_beta2_z_2.txt
+│   │   │   └── file_beta_beta2_z_3.txt
+│   │   └── summary_beta2.md
+│   ├── beta3
+│   │   ├── x
+│   │   │   ├── file_beta_beta3_x_1.txt
+│   │   │   ├── file_beta_beta3_x_2.txt
+│   │   │   └── file_beta_beta3_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_beta_beta3_y_1.txt
+│   │   │   ├── file_beta_beta3_y_2.txt
+│   │   │   └── file_beta_beta3_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_beta_beta3_z_1.txt
+│   │   │   ├── file_beta_beta3_z_2.txt
+│   │   │   └── file_beta_beta3_z_3.txt
+│   │   └── summary_beta3.md
+│   └── README_beta.md
+├── gamma
+│   ├── gamma1
+│   │   ├── x
+│   │   │   ├── file_gamma_gamma1_x_1.txt
+│   │   │   ├── file_gamma_gamma1_x_2.txt
+│   │   │   └── file_gamma_gamma1_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_gamma_gamma1_y_1.txt
+│   │   │   ├── file_gamma_gamma1_y_2.txt
+│   │   │   └── file_gamma_gamma1_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_gamma_gamma1_z_1.txt
+│   │   │   ├── file_gamma_gamma1_z_2.txt
+│   │   │   └── file_gamma_gamma1_z_3.txt
+│   │   └── summary_gamma1.md
+│   ├── gamma2
+│   │   ├── x
+│   │   │   ├── file_gamma_gamma2_x_1.txt
+│   │   │   ├── file_gamma_gamma2_x_2.txt
+│   │   │   └── file_gamma_gamma2_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_gamma_gamma2_y_1.txt
+│   │   │   ├── file_gamma_gamma2_y_2.txt
+│   │   │   └── file_gamma_gamma2_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_gamma_gamma2_z_1.txt
+│   │   │   ├── file_gamma_gamma2_z_2.txt
+│   │   │   └── file_gamma_gamma2_z_3.txt
+│   │   └── summary_gamma2.md
+│   ├── gamma3
+│   │   ├── x
+│   │   │   ├── file_gamma_gamma3_x_1.txt
+│   │   │   ├── file_gamma_gamma3_x_2.txt
+│   │   │   └── file_gamma_gamma3_x_3.txt
+│   │   ├── y
+│   │   │   ├── file_gamma_gamma3_y_1.txt
+│   │   │   ├── file_gamma_gamma3_y_2.txt
+│   │   │   └── file_gamma_gamma3_y_3.txt
+│   │   ├── z
+│   │   │   ├── file_gamma_gamma3_z_1.txt
+│   │   │   ├── file_gamma_gamma3_z_2.txt
+│   │   │   └── file_gamma_gamma3_z_3.txt
+│   │   └── summary_gamma3.md
+│   └── README_gamma.md
+└── delta
+    └── d1
+        └── d2
+            └── d3
+                └── d4
+                    └── d5
+                        └── d6
+                            └── d7
+                                └── deep_file.txt
+
+46 directories, 94 files
