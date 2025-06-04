@@ -13,7 +13,7 @@ Clone this repository and make the script executable:
 ```bash
 git clone https://github.com/yourusername/transplant.git
 cd transplant
-chmod +x transplant.py
+chmod +x transplant
 ```
 
 You can also add it to your PATH for system-wide access.
@@ -28,7 +28,7 @@ You can also add it to your PATH for system-wide access.
 Basic usage:
 
 ```bash
-./transplant.py TREE_OUTPUT DEST_DIR
+./transplant TREE_OUTPUT DEST_DIR
 ```
 
 Where:
@@ -54,19 +54,19 @@ tree /path/to/source > directory_structure.txt
 2. Recreate that structure in a new location:
 
 ```bash
-./transplant.py directory_structure.txt /path/to/destination
+./transplant directory_structure.txt /path/to/destination
 ```
 
 3. Do a dry run to see what would happen without modifying the filesystem:
 
 ```bash
-./transplant.py directory_structure.txt --dry-run
+./transplant directory_structure.txt --dry-run
 ```
 
 4. Verbose output showing each path as it's created:
 
 ```bash
-./transplant.py directory_structure.txt /path/to/destination --verbose
+./transplant directory_structure.txt /path/to/destination --verbose
 ```
 
 ## License
