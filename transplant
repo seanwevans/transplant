@@ -14,7 +14,7 @@ SUMMARY_RE = re.compile(r"^\d+\s+(?:directories?|files?)", re.I)
 
 def parse_args(args):
     argp = argparse.ArgumentParser(
-        prog=__name__,
+        prog="transplant",
         description=__doc__,
     )
 
