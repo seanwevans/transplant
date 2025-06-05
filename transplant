@@ -64,15 +64,16 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False):
     if not listing_path.exists():
         sys.exit(f"Listing file not found: {listing_path}")
 
+    base_destination = destination or Path.cwd()
+
     if dry_run:
         verbose = True
-        destination = Path("/")
     else:
         if verbose:
-            print(f"MAKING {destination}")
-        destination.mkdir(parents=True, exist_ok=True)
+            print(f"MAKING {base_destination}")
+        base_destination.mkdir(parents=True, exist_ok=True)
 
-    stack = [destination]
+    stack = [base_destination]
 
     with listing_path.open("r", encoding="utf-8") as fh:
         for raw in fh:
@@ -110,7 +111,10 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False):
                     target.mkdir(parents=True, exist_ok=True)
                 stack.append(target)
 
-    print(f"Directory structure transplanted to {destination.resolve()}")
+    if dry_run:
+        print(f"(dry run) Directory structure would be transplanted to {destination}")
+    else:
+        print(f"Directory structure transplanted to {base_destination.resolve()}")
 
 
 def main(args):
