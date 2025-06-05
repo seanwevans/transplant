@@ -8,15 +8,20 @@ Recreate directory structures from `tree`'s output.
 
 ## Installation
 
-Clone this repository and make the script executable:
+Install the latest version directly from the repository using `pip`:
 
 ```bash
-git clone https://github.com/yourusername/transplant.git
-cd transplant
-chmod +x transplant
+pip install git+https://github.com/yourusername/transplant.git
 ```
 
-You can also add it to your PATH for system-wide access.
+If you prefer to isolate the tool, `pipx` works as well:
+
+```bash
+pipx install git+https://github.com/yourusername/transplant.git
+```
+
+You can still clone this repository and run the script directly if you
+prefer.
 
 ## Prerequisites
 

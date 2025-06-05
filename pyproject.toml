@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transplant"
+version = "0.1.0"
+description = "Recreate directory structures from tree's output."
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "MIT"}
+authors = [{name = "Unknown"}]
+
+[project.scripts]
+transplant = "transplant:main"
+
+[tool.setuptools]
+py-modules = ["transplant"]
