@@ -45,10 +45,12 @@ Where:
 
 ## Examples
 
-1. Generate a tree representation of a directory structure:
+1. Generate a tree representation of a directory structure. Use `tree -F` (or
+   `tree --slash-indicators` on newer versions) so that directories end with a
+   trailing `/`:
 
 ```bash
-tree /path/to/source > directory_structure.txt
+tree -F /path/to/source > directory_structure.txt
 ```
 
 2. Recreate that structure in a new location:

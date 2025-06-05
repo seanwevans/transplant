@@ -8,7 +8,9 @@ import re
 import sys
 
 
-LINE_RE = re.compile(r"^(?P<prefix>(?:│   |    )*)(?P<fork>[├└])── (?P<name>.+)$")
+LINE_RE = re.compile(
+    r"^(?P<prefix>(?:│   |    )*)(?P<fork>[├└])── (?P<name>.+?)(?P<is_dir>/)?$"
+)
 SUMMARY_RE = re.compile(r"^\d+\s+(?:directories?|files?)", re.I)
 
 
@@ -56,7 +58,9 @@ def parse_args(args):
     return parsed
 
 
-def is_probably_file(fname):
+def is_probably_file(fname, is_dir=None):
+    if is_dir is not None:
+        return not is_dir
     return "." in fname.strip(".") and not fname.endswith("/")
 
 
@@ -91,8 +95,9 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False):
 
             depth = len(m.group("prefix")) // 4 + 1
             name = m.group("name").rstrip("/")
+            is_dir = True if m.group("is_dir") else None
             if verbose:
-                print(f"Depth: {depth}, Name: {name}")
+                print(f"Depth: {depth}, Name: {name}, Dir: {is_dir}")
 
             stack = stack[:depth]
             parent_dir = stack[-1]
@@ -101,7 +106,7 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False):
                 print(f"parent: {parent_dir}")
                 print(f"CREATE {target}")
 
-            if is_probably_file(name):
+            if is_probably_file(name, is_dir=is_dir):
                 if not dry_run:
                     target.parent.mkdir(parents=True, exist_ok=True)
                     target.touch(exist_ok=True)
