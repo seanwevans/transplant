@@ -40,6 +40,7 @@ Where:
 ```
 -d, --dry-run   Don't touch the filesystem—just report what would be done
 -v, --verbose   Print each path as it is (or would be) created
+    --ascii     Parse ASCII tree output instead of Unicode
 -h, --help      Show help message and exit
 ```
 
