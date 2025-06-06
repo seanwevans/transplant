@@ -16,7 +16,12 @@ import sys
 __version__ = "0.1.0"
 
 
-LINE_RE = re.compile(r"^(?P<prefix>(?:│   |    )*)(?P<fork>[├└])── (?P<name>.+)$")
+UNICODE_LINE_RE = re.compile(
+    r"^(?P<prefix>(?:│   |    )*)(?P<fork>[├└])── (?P<name>.+)$"
+)
+ASCII_LINE_RE = re.compile(
+    r"^(?P<prefix>(?:\|   |    )*)(?P<fork>[\|+`\\])-- (?P<name>.+)$"
+)
 SUMMARY_RE = re.compile(r"^\d+\s+(?:directories?|files?)", re.I)
 
 
@@ -55,6 +60,11 @@ def parse_args(args):
     )
 
     argp.add_argument(
+        "--ascii",
+        action="store_true",
+        help="Parse ASCII tree output instead of Unicode.",
+
+    argp.add_argument(
         "--force",
         action="store_true",
         help="Overwrite existing files when recreating the hierarchy.",
@@ -81,7 +91,11 @@ def is_probably_file(fname):
     return "." in fname.strip(".") and not fname.endswith("/")
 
 
-def rebuild_tree(listing_path, destination, dry_run=False, verbose=False, force=False):
+
+def rebuild_tree(listing_path, destination, dry_run=False, verbose=False, ascii=False):
+    if not listing_path.exists():
+        sys.exit(f"Listing file not found: {listing_path}")
+
     if listing_path == "-":
         fh = sys.stdin
     else:
@@ -89,6 +103,7 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False, force=
         if not listing_path.exists():
             sys.exit(f"Listing file not found: {listing_path}")
         fh = listing_path.open("r", encoding="utf-8")
+
 
     if dry_run:
         verbose = True
@@ -100,18 +115,28 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False, force=
 
     stack = [destination]
 
+
+    line_re = ASCII_LINE_RE if ascii else UNICODE_LINE_RE
+
+    with listing_path.open("r", encoding="utf-8") as fh:
+        for raw in fh:
+            line = raw.rstrip("\n")
+            if verbose:
+                print(line)
+
     for raw in fh:
         line = raw.rstrip("\n")
         if verbose:
             print(line)
+
 
         if line.strip() == "." or SUMMARY_RE.match(line):
             continue
 
         m = LINE_RE.match(line)
         if not m:
-                if verbose:
-                    print("failed to match line format, skipping...")
+            if verbose:
+                print("failed to match line format, skipping...")
                 continue
 
         depth = len(m.group("prefix")) // 4 + 1
@@ -155,6 +180,7 @@ def main(args):
         destination=params.destination,
         dry_run=params.dry_run,
         verbose=params.verbose,
+        ascii=params.ascii,
         force=params.force,
     )
 
