@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
 
-"""transplant - Recreate directory structures from `tree`'s output"""
+"""transplant - Recreate directory structures from `tree`'s output.
+
+Features include:
+* Accepting ``-`` as ``TREE_OUTPUT`` to read from standard input.
+* ``--version`` flag to report the program version.
+* ``--force`` option to overwrite existing files when recreating the hierarchy.
+"""
 
 import argparse
 from pathlib import Path
 import re
 import sys
+
+__version__ = "0.1.0"
 
 
 UNICODE_LINE_RE = re.compile(
@@ -26,8 +34,7 @@ def parse_args(args):
     argp.add_argument(
         "listing",
         metavar="TREE_OUTPUT",
-        type=Path,
-        help="Text file containing the output of `tree`.",
+        help="Text file containing the output of `tree` or '-' for STDIN.",
     )
 
     argp.add_argument(
@@ -56,6 +63,19 @@ def parse_args(args):
         "--ascii",
         action="store_true",
         help="Parse ASCII tree output instead of Unicode.",
+
+    argp.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite existing files when recreating the hierarchy.",
+    )
+
+    argp.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+        help="Show program's version number and exit.",
     )
 
     parsed = argp.parse_args(args)
@@ -71,9 +91,19 @@ def is_probably_file(fname):
     return "." in fname.strip(".") and not fname.endswith("/")
 
 
+
 def rebuild_tree(listing_path, destination, dry_run=False, verbose=False, ascii=False):
     if not listing_path.exists():
         sys.exit(f"Listing file not found: {listing_path}")
+
+    if listing_path == "-":
+        fh = sys.stdin
+    else:
+        listing_path = Path(listing_path)
+        if not listing_path.exists():
+            sys.exit(f"Listing file not found: {listing_path}")
+        fh = listing_path.open("r", encoding="utf-8")
+
 
     if dry_run:
         verbose = True
@@ -85,6 +115,7 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False, ascii=
 
     stack = [destination]
 
+
     line_re = ASCII_LINE_RE if ascii else UNICODE_LINE_RE
 
     with listing_path.open("r", encoding="utf-8") as fh:
@@ -93,35 +124,50 @@ def rebuild_tree(listing_path, destination, dry_run=False, verbose=False, ascii=
             if verbose:
                 print(line)
 
-            if line.strip() == "." or SUMMARY_RE.match(line):
-                continue
+    for raw in fh:
+        line = raw.rstrip("\n")
+        if verbose:
+            print(line)
 
-            m = line_re.match(line)
-            if not m:
-                if verbose:
-                    print("failed to match line format, skipping...")
-                continue
 
-            depth = len(m.group("prefix")) // 4 + 1
-            name = m.group("name").rstrip("/")
+        if line.strip() == "." or SUMMARY_RE.match(line):
+            continue
+
+        m = LINE_RE.match(line)
+        if not m:
             if verbose:
+                print("failed to match line format, skipping...")
+                continue
+
+        depth = len(m.group("prefix")) // 4 + 1
+        name = m.group("name").rstrip("/")
+        if verbose:
                 print(f"Depth: {depth}, Name: {name}")
 
-            stack = stack[:depth]
-            parent_dir = stack[-1]
-            target = parent_dir / name
-            if verbose:
+        stack = stack[:depth]
+        parent_dir = stack[-1]
+        target = parent_dir / name
+        if verbose:
                 print(f"parent: {parent_dir}")
                 print(f"CREATE {target}")
 
-            if is_probably_file(name):
+        if is_probably_file(name):
                 if not dry_run:
                     target.parent.mkdir(parents=True, exist_ok=True)
-                    target.touch(exist_ok=True)
-            else:
+                    if force:
+                        with target.open("w", encoding="utf-8"):
+                            pass
+                    else:
+                        target.touch(exist_ok=True)
+        else:
                 if not dry_run:
+                    if force and target.exists() and target.is_file():
+                        target.unlink()
                     target.mkdir(parents=True, exist_ok=True)
                 stack.append(target)
+
+    if fh is not sys.stdin:
+        fh.close()
 
     print(f"Directory structure transplanted to {destination.resolve()}")
 
@@ -135,6 +181,7 @@ def main(args):
         dry_run=params.dry_run,
         verbose=params.verbose,
         ascii=params.ascii,
+        force=params.force,
     )
 
 

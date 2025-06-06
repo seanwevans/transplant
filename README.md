@@ -32,7 +32,8 @@ Basic usage:
 ```
 
 Where:
-- `TREE_OUTPUT` is a text file containing the output of the `tree` command
+- `TREE_OUTPUT` is a text file containing the output of the `tree` command. Use
+  `-` to read the listing from standard input.
 - `DEST_DIR` is the directory where you want to recreate the structure
 
 ### Options
@@ -41,6 +42,8 @@ Where:
 -d, --dry-run   Don't touch the filesystem—just report what would be done
 -v, --verbose   Print each path as it is (or would be) created
     --ascii     Parse ASCII tree output instead of Unicode
+    --force     Overwrite existing files when recreating the hierarchy
+-V, --version   Show program's version number and exit
 -h, --help      Show help message and exit
 ```
 
@@ -68,6 +71,24 @@ tree /path/to/source > directory_structure.txt
 
 ```bash
 ./transplant directory_structure.txt /path/to/destination --verbose
+```
+
+5. Read the listing from standard input:
+
+```bash
+tree /path/to/source | ./transplant - /path/to/destination
+```
+
+6. Overwrite existing files when recreating the structure:
+
+```bash
+./transplant directory_structure.txt /path/to/destination --force
+```
+
+7. Display the script version:
+
+```bash
+./transplant --version
 ```
 
 ## License
