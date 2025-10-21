@@ -1,4 +1,5 @@
 # transplant
+<img width="256" alt="Stormy Night Lightning Show" src="https://github.com/user-attachments/assets/fa7105ae-557a-4cca-a9c6-6ce56aab1f68" />
 
 Recreate directory structures from `tree`'s output.
 
